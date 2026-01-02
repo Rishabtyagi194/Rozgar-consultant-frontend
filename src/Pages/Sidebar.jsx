@@ -4,38 +4,34 @@ import React, { useState, useEffect } from "react";
 import { FiHome, FiSettings, FiMenu } from "react-icons/fi";
 import { useNavigate, Outlet } from "react-router-dom";
 
-/* -----------------------------------
-   DaisyUI THEME DROPDOWN COMPONENT
------------------------------------- */
-const themes = ["light", "dark", "cupcake"];
+    
+// const themes = ["light", "dark", "cupcake"];
 
-function ThemeToggle() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+// function ThemeToggle() {
+//   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
-  const changeTheme = (newTheme) => {
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
+//   const changeTheme = (newTheme) => {
+//     setTheme(newTheme);
+//     document.documentElement.setAttribute("data-theme", newTheme);
+//     localStorage.setItem("theme", newTheme);
+//   };
 
-  return (
-    <select
-      className="select select-sm bg-base-100 border border-base-300"
-      value={theme}
-      onChange={(e) => changeTheme(e.target.value)}
-    >
-      {themes.map((t) => (
-        <option key={t} value={t}>
-          {t.charAt(0).toUpperCase() + t.slice(1)}
-        </option>
-      ))}
-    </select>
-  );
-}
+//   return (
+//     <select
+//       className="select select-sm bg-base-100 border border-base-300"
+//       value={theme}
+//       onChange={(e) => changeTheme(e.target.value)}
+//     >
+//       {themes.map((t) => (
+//         <option key={t} value={t}>
+//           {t.charAt(0).toUpperCase() + t.slice(1)}
+//         </option>
+//       ))}
+//     </select>
+//   );
+// }
 
-/* -----------------------------------
-   MAIN SIDEBAR LAYOUT
------------------------------------- */
+
 export default function SidebarLayout() {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -144,7 +140,7 @@ export default function SidebarLayout() {
           </div>
 
           {/* ⭐ THEME TOGGLE DROPDOWN */}
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </nav>
 
         {/* PAGE CONTENT (Dynamic) */}

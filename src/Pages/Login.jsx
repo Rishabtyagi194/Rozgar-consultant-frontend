@@ -1,104 +1,133 @@
-"use client";
-
 import { useState } from "react";
-import { FiMail, FiLock } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
+const Login = ({ setAuthView }) => {
   const [formData, setFormData] = useState({
-    email: "",
+    emailOrPhone: "",
     password: "",
   });
 
-  // Handle Change
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
     setLoading(true);
 
-    // Simulate API instantly without delay
-    console.log("Login Data:", formData);
+    try {
+      const res = await fetch("http://147.93.72.227:5000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.emailOrPhone,
+          password: formData.password,
+        }),
+      });
 
-    setLoading(false);
+      const data = await res.json();
 
-    // Redirect after login
-    navigate("/");
+      if (!res.ok) {
+        alert(data?.message || "Login failed");
+        return;
+      }
+
+      const token = data?.data?.token;
+      const user = data?.data?.user;
+
+      if (token) {
+        document.cookie = `token=${token}; path=/; max-age=604800; SameSite=Lax`;
+      }
+
+      if (user) {
+        document.cookie = `user=${encodeURIComponent(
+          JSON.stringify(user)
+        )}; path=/; max-age=604800; SameSite=Lax`;
+      }
+
+      alert("Login Successful!");
+
+      // 🔥 React SPA success action (no reload)
+      // You can lift auth state or redirect inside app layout
+      window.location.reload(); // optional
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        
-        <h2 className="text-2xl font-bold text-center mb-6 text-[#1B4965]">
-          Login to Your Account
-        </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-5">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          
-          {/* Email */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm mb-1 font-medium">Email</label>
-            <div className="flex items-center border rounded-lg px-3">
-              <FiMail className="text-gray-500" />
-              <input
-                type="email"
-                name="email"
-                required
-                onChange={handleChange}
-                className="w-full px-2 py-2 outline-none"
-                placeholder="Enter your email"
-              />
-            </div>
+            <label className="block font-medium mb-1">
+              Email or Phone Number
+            </label>
+            <input
+              type="text"
+              name="emailOrPhone"
+              value={formData.emailOrPhone}
+              onChange={handleChange}
+              required
+              className="w-full border px-3 py-2 rounded"
+            />
           </div>
 
-          {/* Password */}
           <div>
-            <label className="block text-sm mb-1 font-medium">Password</label>
-            <div className="flex items-center border rounded-lg px-3">
-              <FiLock className="text-gray-500" />
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                required
-                onChange={handleChange}
-                className="w-full px-2 py-2 outline-none"
-                placeholder="Enter your password"
-              />
+            <label className="block font-medium mb-1">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full border px-3 py-2 rounded"
+            />
+
+            <p className="text-right text-sm mt-1">
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="text-sm text-blue-500"
+                onClick={() => setAuthView("forgot")}
+                className="text-blue-600 hover:underline"
               >
-                {showPassword ? "Hide" : "Show"}
+                Forgot password?
               </button>
-            </div>
+            </p>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 bg-[#1B4965] text-white rounded-lg font-medium hover:bg-[#163A52] transition disabled:opacity-60"
+            className="w-full bg-blue-600 text-white py-2 rounded font-semibold disabled:bg-gray-400"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="text-center text-sm mt-4">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-blue-600 font-medium">
-            Sign Up
-          </a>
+        <p className="text-sm text-center mt-4">
+          Don&apos;t have an account?{" "}
+          <button
+            type="button"
+            onClick={() => setAuthView("signup")}
+            className="text-blue-600 font-semibold"
+          >
+            Signup
+          </button>
         </p>
       </div>
     </div>
   );
-}
+};
+
+export default Login;
