@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { RecommendedHeader } from "./RecoomendedHeader";
-import { getAllJobs } from "@/components/services/getAllJobs";
+
 import { JobCard } from "./JobsCard";
+import { RecommendedHeader } from "./RecomendedHeader";
 
 export const RecommendedJobsSection = () => {
   const [activeTab, setActiveTab] = useState("All Jobs");

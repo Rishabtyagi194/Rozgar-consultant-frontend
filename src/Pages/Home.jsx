@@ -1,7 +1,10 @@
 import React from 'react'
+import { RecommendedJobsSection } from '../Components/Jobs/RecommendedJobsSection'
 
 export const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <RecommendedJobsSection />
+    </div>
   )
 }

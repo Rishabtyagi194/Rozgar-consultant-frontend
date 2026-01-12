@@ -1,31 +1,39 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/global/Navbar";
-import AuthContainer from "./Components/global/AuthContainer";
+
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import ForgotPassword from "./Pages/ForgotPassword";
+import RegisterAgencyForm from "./Pages/RegistrationForm";
 
 import { Home } from "./Pages/Home";
 import { Setting } from "./Pages/Setting";
 import { AllJobs } from "./Pages/AllJobs";
 import ContactPage from "./Pages/ContactUs";
+import JobPostForm from "./Components/JobPosting/JobPostingForm";
+import InternshipJob from "./Components/JobPosting/Internship/InternshipPostingForm";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-
-        {/* Auth */}
-        <Route path="/" element={<AuthContainer />} />
+        {/* Auth Routes */}
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/register-agency" element={<RegisterAgencyForm />} />
 
         {/* App Layout with Navbar */}
         <Route element={<Navbar />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/jobs" element={<AllJobs />} />
+          <Route path="/job-posting" element={<JobPostForm />} />
+          <Route path="/internship-posting" element={<InternshipJob />} />
           <Route path="/settings" element={<Setting />} />
           <Route path="/contactus" element={<ContactPage />} />
           <Route path="/recommendedjobs" element={<AllJobs />} />
           <Route path="/service" element={<ContactPage />} />
           <Route path="/profile" element={<ContactPage />} />
         </Route>
-
       </Routes>
     </BrowserRouter>
   );
