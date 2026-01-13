@@ -40,8 +40,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/jobs" onClick={() => setIsMenuOpen(false)}>
-                Jobs
+              <Link to="/job-posting" onClick={() => setIsMenuOpen(false)}>
+                Job Post
+              </Link>
+            </li>
+            <li>
+              <Link to="/internship-posting" onClick={() => setIsMenuOpen(false)}>
+                Internship Post
               </Link>
             </li>
             <li>
@@ -81,9 +86,10 @@ const Navbar = () => {
         <nav className="hidden md:block">
           <ul className="flex space-x-6 text-sm">
             <li><Link to="/home">Home</Link></li>
+            <li><Link to="/job-posting">Job Posting</Link></li>
+            <li><Link to="/internship-posting">Internship Posting</Link></li>
             <li><Link to="/service">Service</Link></li>
-            <li><Link to="/jobs">Jobs</Link></li>
-            <li><Link to="/contactus">Contact</Link></li>
+            <li><Link to="/contactus">Contact Us</Link></li>
           </ul>
         </nav>
 

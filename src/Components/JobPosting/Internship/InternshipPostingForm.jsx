@@ -74,7 +74,7 @@ const InternshipJob = () => {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 bg-gray-100 p-6">
       <InternshipDetails setDetails={setDetails} />
       <PereferedCandidate setCandidate={setCandidate} />
       <InternshipDescription setDescription={setDescription} />

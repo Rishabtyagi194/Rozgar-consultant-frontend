@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import {getAllJobs} from '../services/getAllJobs'
 
 import { JobCard } from "./JobsCard";
 import { RecommendedHeader } from "./RecomendedHeader";
@@ -20,9 +20,9 @@ export const RecommendedJobsSection = () => {
   }, []);
 
   const tabs = [
-    { name: "All Jobs", count: jobs.length },
-    // { name: "Profile", count: 0 },
-    // { name: "Preferences", count: jobs.length },
+    { name: "All Recruiter Jobs", count: jobs.length },
+    { name: "Posted By you", count: 0 },
+    { name: "Preferences", count: jobs.length },
     // { name: "You might like", count: jobs.length },
   ];
 
