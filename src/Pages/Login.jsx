@@ -22,14 +22,17 @@ const Login = ({ setAuthView }) => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://147.93.72.227:5000/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.emailOrPhone,
-          password: formData.password,
-        }),
-      });
+      const res = await fetch(
+        "http://147.93.72.227:5000/api/consultant/agency/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.emailOrPhone,
+            password: formData.password,
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -99,7 +102,7 @@ const Login = ({ setAuthView }) => {
               <button
                 type="button"
                 onClick={() => setAuthView("forgot")}
-                className="text-blue-600 hover:underline"
+                className="text-blue-600 hover:underline cursor-pointer"
               >
                 Forgot password?
               </button>
@@ -119,10 +122,10 @@ const Login = ({ setAuthView }) => {
           Don&apos;t have an account?{" "}
           <button
             type="button"
-            onClick={() => setAuthView("signup")}
-            className="text-blue-600 font-semibold"
+            onClick={() => setAuthView("register-agency")}
+            className="text-blue-600 font-semibold cursor-pointer hover:underline"
           >
-            Signup
+          Register
           </button>
         </p>
       </div>

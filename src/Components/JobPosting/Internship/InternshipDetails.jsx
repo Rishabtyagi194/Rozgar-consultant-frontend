@@ -60,7 +60,7 @@ import { useNavigate } from "react-router-dom";
 
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center py-10 px-4">
+    <div className="min-h-screen  flex justify-center  px-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
         <h2 className="text-xl font-semibold mb-6">Post a Job - Internship</h2>
 
