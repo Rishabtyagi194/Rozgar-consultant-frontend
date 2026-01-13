@@ -12,6 +12,9 @@ import { AllJobs } from "./Pages/AllJobs";
 import ContactPage from "./Pages/ContactUs";
 import JobPostForm from "./Components/JobPosting/JobPostingForm";
 import InternshipJob from "./Components/JobPosting/Internship/InternshipPostingForm";
+import { HRResponses } from "./Pages/HRResponses";
+import UploadResume from "./Pages/UploadResume";
+import MyArchive from "./Pages/MyArchive";
 
 function App() {
   return (
@@ -28,6 +31,11 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/job-posting" element={<JobPostForm />} />
           <Route path="/internship-posting" element={<InternshipJob />} />
+          <Route path="/hr-responses" element={<HRResponses />} />
+          <Route path="/upload-resume" element={<UploadResume />} />
+          <Route path="/my-archive" element={<MyArchive />} />
+
+
           <Route path="/settings" element={<Setting />} />
           <Route path="/contactus" element={<ContactPage />} />
           <Route path="/recommendedjobs" element={<AllJobs />} />

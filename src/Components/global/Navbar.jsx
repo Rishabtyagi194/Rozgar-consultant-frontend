@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { Link, Outlet } from "react-router-dom";
+import { FaBars, FaTimes, FaUserCircle, FaChevronDown } from "react-icons/fa";
+import { NavLink, Outlet } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const activeClass = "text-purple-600 font-semibold border-b-2 border-purple-600";
+  const normalClass = "hover:text-purple-600 transition";
 
   return (
     <>
@@ -28,40 +32,66 @@ const Navbar = () => {
         </div>
 
         <nav className="px-4">
-          <ul className="flex flex-col items-center space-y-6 mt-6">
+          <ul className="flex flex-col items-start space-y-6 mt-6 text-sm">
             <li>
-              <Link to="/home" onClick={() => setIsMenuOpen(false)}>
+              <NavLink to="/home" onClick={() => setIsMenuOpen(false)}>
                 Home
-              </Link>
+              </NavLink>
             </li>
+
+            {/* Dropdown */}
             <li>
-              <Link to="/service" onClick={() => setIsMenuOpen(false)}>
-                Service
-              </Link>
-            </li>
-            <li>
-              <Link to="/job-posting" onClick={() => setIsMenuOpen(false)}>
-                Job Post
-              </Link>
-            </li>
-            <li>
-              <Link to="/internship-posting" onClick={() => setIsMenuOpen(false)}>
-                Internship Post
-              </Link>
-            </li>
-            <li>
-              <Link to="/contactus" onClick={() => setIsMenuOpen(false)}>
-                Contact Us
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/profile"
-                onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-2 bg-[#A270FF1A] rounded-xl"
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2"
               >
+                Jobs <FaChevronDown size={12} />
+              </button>
+              {isDropdownOpen && (
+                <ul className="ml-4 mt-3 space-y-3 text-gray-600">
+                  <li>
+                    <NavLink to="/job-posting" onClick={() => setIsMenuOpen(false)}>
+                      Job Posting
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/internship-posting" onClick={() => setIsMenuOpen(false)}>
+                      Internship Posting
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/hr-responses" onClick={() => setIsMenuOpen(false)}>
+                      HR Responses
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/upload-resume" onClick={() => setIsMenuOpen(false)}>
+                      Upload Resume
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/my-archive" onClick={() => setIsMenuOpen(false)}>
+                      My Archive
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+            </li>
+
+            <li>
+              <NavLink to="/service" onClick={() => setIsMenuOpen(false)}>
+                Service
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contactus" onClick={() => setIsMenuOpen(false)}>
+                Contact Us
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile" onClick={() => setIsMenuOpen(false)}>
                 Profile
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -70,47 +100,71 @@ const Navbar = () => {
       {/* Header */}
       <header className="flex items-center justify-between px-4 sm:px-6 py-4 shadow-md bg-white sticky top-0 z-30">
         <div className="flex items-center">
-          <button
-            className="mr-4 md:hidden"
-            onClick={() => setIsMenuOpen(true)}
-          >
+          <button className="mr-4 md:hidden" onClick={() => setIsMenuOpen(true)}>
             <FaBars size={24} />
           </button>
 
-          <Link to="/home" className="font-bold text-lg">
+          <NavLink to="/home" className="font-bold text-lg">
             LOGO
-          </Link>
+          </NavLink>
         </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:block">
-          <ul className="flex space-x-6 text-sm">
-            <li><Link to="/home">Home</Link></li>
-            <li><Link to="/job-posting">Job Posting</Link></li>
-            <li><Link to="/internship-posting">Internship Posting</Link></li>
-            <li><Link to="/service">Service</Link></li>
-            <li><Link to="/contactus">Contact Us</Link></li>
+          <ul className="flex space-x-6 text-sm items-center">
+            <li>
+              <NavLink to="/home" className={({ isActive }) => (isActive ? activeClass : normalClass)}>
+                Home
+              </NavLink>
+            </li>
+
+            {/* Dropdown */}
+            <li className="relative group cursor-pointer">
+              <div className="flex items-center gap-1">
+                Jobs <FaChevronDown size={12} />
+              </div>
+
+              <ul className="absolute top-6 left-0 bg-white shadow-lg rounded-xl py-3 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <NavLink to="/job-posting">Job Posting</NavLink>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <NavLink to="/internship-posting">Internship Posting</NavLink>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <NavLink to="/hr-responses">HR Responses</NavLink>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <NavLink to="/upload-resume">Upload Resume</NavLink>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <NavLink to="/my-archive">My Archive</NavLink>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <NavLink to="/service" className={({ isActive }) => (isActive ? activeClass : normalClass)}>
+                Service
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contactus" className={({ isActive }) => (isActive ? activeClass : normalClass)}>
+                Contact Us
+              </NavLink>
+            </li>
           </ul>
         </nav>
 
-        {/* Desktop Buttons */}
+        {/* Profile Icon */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link
-            to="/profile"
-            className="px-4 py-2 bg-[#A270FF1A] rounded-xl"
-          >
-            Profile
-          </Link>
-          <Link
-            to="/contactus"
-            className="px-4 py-2 bg-black text-white rounded-xl"
-          >
-            Contact Us
-          </Link>
+          <NavLink to="/profile">
+            <FaUserCircle size={28} className="text-gray-700 hover:text-purple-600 transition" />
+          </NavLink>
         </div>
       </header>
 
-      {/* 🔥 REQUIRED FOR ROUTING */}
+      {/* REQUIRED FOR ROUTING */}
       <main className="p-4">
         <Outlet />
       </main>

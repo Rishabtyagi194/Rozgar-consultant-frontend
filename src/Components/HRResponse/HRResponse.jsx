@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getAllJobs, getEmployerJobs } from "../services/getAllJobs";
+import { RecommendedHeader } from "../Jobs/RecomendedHeader";
+import { JobCard } from "../Jobs/JobsCard";
 
-import { JobCard } from "./JobsCard";
-import { RecommendedHeader } from "./RecomendedHeader";
 
-export const RecommendedJobsSection = () => {
+export const ResponseRecuriter = () => {
   const [activeTab, setActiveTab] = useState("All Recruiter Jobs");
   const [jobs, setJobs] = useState([]);
   const [employerJobs, setEmployerJobs] = useState([]);
@@ -39,8 +39,8 @@ export const RecommendedJobsSection = () => {
 
   const tabs = [
     { name: "All Recruiter Jobs", count: jobs.length },
-    { name: "Posted By you", count: employerJobs.length },
-    { name: "Preferences", count: jobs.length },
+    // { name: "Posted By you", count: employerJobs.length },
+    // { name: "Preferences", count: jobs.length },
   ];
 
   const renderJobs = activeTab === "Posted By you" ? employerJobs : jobs;
