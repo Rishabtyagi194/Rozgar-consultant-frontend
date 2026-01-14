@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 const RegisterAgencyForm = () => {
   const [formData, setFormData] = useState({
-    agency: {
+    organisationData: {
       name: "",
       industry: "",
       contact_email: "",
       contact_phone: "",
       address: "",
     },
-    user: {
+    userData: {
       name: "",
       email: "",
       password: "",
@@ -38,7 +38,7 @@ const RegisterAgencyForm = () => {
     setMessage("");
 
     try {
-      const res = await fetch("http://147.93.72.227:5000/api/consultant/register-agency", {
+      const res = await fetch("http://147.93.72.227:5000/api/organization/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,15 +53,17 @@ const RegisterAgencyForm = () => {
       }
 
       setMessage("✅ Agency registered successfully!");
+
+      // reset form
       setFormData({
-        agency: {
+        organisationData: {
           name: "",
           industry: "",
           contact_email: "",
           contact_phone: "",
           address: "",
         },
-        user: {
+        userData: {
           name: "",
           email: "",
           password: "",
@@ -80,51 +82,56 @@ const RegisterAgencyForm = () => {
       <h2 className="text-2xl font-bold mb-6">Register Agency</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* ================= Agency Section ================= */}
+
+        {/* ================= Organisation Section ================= */}
         <div>
-          <h3 className="text-lg font-semibold mb-3">Agency Details</h3>
+          <h3 className="text-lg font-semibold mb-3">Organisation Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input
               type="text"
               name="name"
               placeholder="Agency Name"
-              value={formData.agency.name}
-              onChange={(e) => handleChange(e, "agency")}
+              value={formData.organisationData.name}
+              onChange={(e) => handleChange(e, "organisationData")}
               className="border p-2 rounded"
               required
             />
+
             <input
               type="text"
               name="industry"
               placeholder="Industry"
-              value={formData.agency.industry}
-              onChange={(e) => handleChange(e, "agency")}
+              value={formData.organisationData.industry}
+              onChange={(e) => handleChange(e, "organisationData")}
               className="border p-2 rounded"
               required
             />
+
             <input
               type="email"
               name="contact_email"
               placeholder="Contact Email"
-              value={formData.agency.contact_email}
-              onChange={(e) => handleChange(e, "agency")}
+              value={formData.organisationData.contact_email}
+              onChange={(e) => handleChange(e, "organisationData")}
               className="border p-2 rounded"
               required
             />
+
             <input
               type="text"
               name="contact_phone"
               placeholder="Contact Phone"
-              value={formData.agency.contact_phone}
-              onChange={(e) => handleChange(e, "agency")}
+              value={formData.organisationData.contact_phone}
+              onChange={(e) => handleChange(e, "organisationData")}
               className="border p-2 rounded"
               required
             />
+
             <textarea
               name="address"
               placeholder="Address"
-              value={formData.agency.address}
-              onChange={(e) => handleChange(e, "agency")}
+              value={formData.organisationData.address}
+              onChange={(e) => handleChange(e, "organisationData")}
               className="border p-2 rounded md:col-span-2"
               rows={3}
               required
@@ -140,35 +147,38 @@ const RegisterAgencyForm = () => {
               type="text"
               name="name"
               placeholder="User Name"
-              value={formData.user.name}
-              onChange={(e) => handleChange(e, "user")}
+              value={formData.userData.name}
+              onChange={(e) => handleChange(e, "userData")}
               className="border p-2 rounded"
               required
             />
+
             <input
               type="email"
               name="email"
               placeholder="User Email"
-              value={formData.user.email}
-              onChange={(e) => handleChange(e, "user")}
+              value={formData.userData.email}
+              onChange={(e) => handleChange(e, "userData")}
               className="border p-2 rounded"
               required
             />
+
             <input
               type="password"
               name="password"
               placeholder="Password"
-              value={formData.user.password}
-              onChange={(e) => handleChange(e, "user")}
+              value={formData.userData.password}
+              onChange={(e) => handleChange(e, "userData")}
               className="border p-2 rounded"
               required
             />
+
             <input
               type="text"
               name="phone"
               placeholder="User Phone"
-              value={formData.user.phone}
-              onChange={(e) => handleChange(e, "user")}
+              value={formData.userData.phone}
+              onChange={(e) => handleChange(e, "userData")}
               className="border p-2 rounded"
               required
             />

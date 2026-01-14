@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const Login = ({ setAuthView }) => {
   const [formData, setFormData] = useState({
-    emailOrPhone: "",
+    username: "",
     password: "",
   });
 
@@ -23,12 +23,12 @@ const Login = ({ setAuthView }) => {
 
     try {
       const res = await fetch(
-        "http://147.93.72.227:5000/api/consultant/agency/login",
+        "http://147.93.72.227:5000/api/employer/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            email: formData.emailOrPhone,
+            username: formData.username,
             password: formData.password,
           }),
         }
@@ -79,8 +79,8 @@ const Login = ({ setAuthView }) => {
             </label>
             <input
               type="text"
-              name="emailOrPhone"
-              value={formData.emailOrPhone}
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               required
               className="w-full border px-3 py-2 rounded"
@@ -125,7 +125,7 @@ const Login = ({ setAuthView }) => {
             onClick={() => setAuthView("register-agency")}
             className="text-blue-600 font-semibold cursor-pointer hover:underline"
           >
-          Register
+            Register
           </button>
         </p>
       </div>
