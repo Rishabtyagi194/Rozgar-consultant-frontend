@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ setAuthView }) => {
+const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -45,20 +48,17 @@ const Login = ({ setAuthView }) => {
       const user = data?.data?.user;
 
       if (token) {
-        document.cookie = `token=${token}; path=/; max-age=604800; SameSite=Lax`;
+        localStorage.setItem("token", token); // ✅ store token
       }
 
       if (user) {
-        document.cookie = `user=${encodeURIComponent(
-          JSON.stringify(user)
-        )}; path=/; max-age=604800; SameSite=Lax`;
+        localStorage.setItem("user", JSON.stringify(user)); // optional
       }
 
       alert("Login Successful!");
 
-      // 🔥 React SPA success action (no reload)
-      // You can lift auth state or redirect inside app layout
-      window.location.reload(); // optional
+      // ✅ Redirect to home page
+      navigate("/home");
     } catch (err) {
       console.error(err);
       alert("Something went wrong!");
@@ -73,6 +73,7 @@ const Login = ({ setAuthView }) => {
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email / Phone */}
           <div>
             <label className="block font-medium mb-1">
               Email or Phone Number
@@ -87,6 +88,7 @@ const Login = ({ setAuthView }) => {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="block font-medium mb-1">Password</label>
             <input
@@ -101,7 +103,7 @@ const Login = ({ setAuthView }) => {
             <p className="text-right text-sm mt-1">
               <button
                 type="button"
-                onClick={() => setAuthView("forgot")}
+                onClick={() => navigate("/forgot-password")}
                 className="text-blue-600 hover:underline cursor-pointer"
               >
                 Forgot password?
@@ -109,6 +111,7 @@ const Login = ({ setAuthView }) => {
             </p>
           </div>
 
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
@@ -118,11 +121,12 @@ const Login = ({ setAuthView }) => {
           </button>
         </form>
 
+        {/* Register */}
         <p className="text-sm text-center mt-4">
           Don&apos;t have an account?{" "}
           <button
             type="button"
-            onClick={() => setAuthView("register-agency")}
+            onClick={() => navigate("/register-agency")}
             className="text-blue-600 font-semibold cursor-pointer hover:underline"
           >
             Register

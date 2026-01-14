@@ -1,13 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaBars, FaTimes, FaUserCircle, FaChevronDown } from "react-icons/fa";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const activeClass = "text-purple-600 font-semibold border-b-2 border-purple-600";
+  const profileRef = useRef(null);
+  const navigate = useNavigate();
+
+  const activeClass =
+    "text-purple-600 font-semibold border-b-2 border-purple-600";
   const normalClass = "hover:text-purple-600 transition";
+
+  // 🔹 Close profile dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // 🔹 Logout Handler
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // remove token
+    localStorage.clear(); // optional: clear all
+    navigate("/"); // redirect to login
+  };
 
   return (
     <>
@@ -39,7 +62,7 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {/* Dropdown */}
+            {/* Mobile Jobs Dropdown */}
             <li>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -47,30 +70,54 @@ const Navbar = () => {
               >
                 Jobs <FaChevronDown size={12} />
               </button>
+
               {isDropdownOpen && (
                 <ul className="ml-4 mt-3 space-y-3 text-gray-600">
                   <li>
-                    <NavLink to="/job-posting" onClick={() => setIsMenuOpen(false)}>
+                    <NavLink
+                      to="/job-posting"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       Job Posting
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/internship-posting" onClick={() => setIsMenuOpen(false)}>
+                    <NavLink
+                      to="/internship-posting"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       Internship Posting
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/hr-responses" onClick={() => setIsMenuOpen(false)}>
+                    <NavLink
+                      to="/hr-responses"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       HR Responses
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/upload-resume" onClick={() => setIsMenuOpen(false)}>
+                    <NavLink
+                      to="/upload-resume"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       Upload Resume
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/my-archive" onClick={() => setIsMenuOpen(false)}>
+                    <NavLink
+                      to="/upload-data"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Upload Excel
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/my-archive"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       My Archive
                     </NavLink>
                   </li>
@@ -88,10 +135,20 @@ const Navbar = () => {
                 Contact Us
               </NavLink>
             </li>
+
+            {/* Mobile Profile + Logout */}
             <li>
               <NavLink to="/profile" onClick={() => setIsMenuOpen(false)}>
                 Profile
               </NavLink>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="text-red-500 font-medium"
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </nav>
@@ -100,7 +157,10 @@ const Navbar = () => {
       {/* Header */}
       <header className="flex items-center justify-between px-4 sm:px-6 py-4 shadow-md bg-white sticky top-0 z-30">
         <div className="flex items-center">
-          <button className="mr-4 md:hidden" onClick={() => setIsMenuOpen(true)}>
+          <button
+            className="mr-4 md:hidden"
+            onClick={() => setIsMenuOpen(true)}
+          >
             <FaBars size={24} />
           </button>
 
@@ -113,12 +173,17 @@ const Navbar = () => {
         <nav className="hidden md:block">
           <ul className="flex space-x-6 text-sm items-center">
             <li>
-              <NavLink to="/home" className={({ isActive }) => (isActive ? activeClass : normalClass)}>
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  isActive ? activeClass : normalClass
+                }
+              >
                 Home
               </NavLink>
             </li>
 
-            {/* Dropdown */}
+            {/* Desktop Jobs Dropdown */}
             <li className="relative group cursor-pointer">
               <div className="flex items-center gap-1">
                 Jobs <FaChevronDown size={12} />
@@ -129,7 +194,9 @@ const Navbar = () => {
                   <NavLink to="/job-posting">Job Posting</NavLink>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-100">
-                  <NavLink to="/internship-posting">Internship Posting</NavLink>
+                  <NavLink to="/internship-posting">
+                    Internship Posting
+                  </NavLink>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-100">
                   <NavLink to="/hr-responses">HR Responses</NavLink>
@@ -140,31 +207,69 @@ const Navbar = () => {
                 <li className="px-4 py-2 hover:bg-gray-100">
                   <NavLink to="/my-archive">My Archive</NavLink>
                 </li>
+                <li className="px-4 py-2 hover:bg-gray-100">
+                  <NavLink to="/upload-data">Upload Excel</NavLink>
+                </li>
               </ul>
             </li>
 
             <li>
-              <NavLink to="/service" className={({ isActive }) => (isActive ? activeClass : normalClass)}>
+              <NavLink
+                to="/service"
+                className={({ isActive }) =>
+                  isActive ? activeClass : normalClass
+                }
+              >
                 Service
               </NavLink>
             </li>
+
             <li>
-              <NavLink to="/contactus" className={({ isActive }) => (isActive ? activeClass : normalClass)}>
+              <NavLink
+                to="/contactus"
+                className={({ isActive }) =>
+                  isActive ? activeClass : normalClass
+                }
+              >
                 Contact Us
               </NavLink>
             </li>
           </ul>
         </nav>
 
-        {/* Profile Icon */}
-        <div className="hidden md:flex items-center space-x-4">
-          <NavLink to="/profile">
-            <FaUserCircle size={28} className="text-gray-700 hover:text-purple-600 transition" />
-          </NavLink>
+        {/* Profile Dropdown */}
+        <div
+          className="hidden md:flex items-center relative"
+          ref={profileRef}
+        >
+          <button onClick={() => setIsProfileOpen(!isProfileOpen)}>
+            <FaUserCircle
+              size={28}
+              className="text-gray-700 hover:text-purple-600 transition"
+            />
+          </button>
+
+          {isProfileOpen && (
+            <div className="absolute right-0 top-10 bg-white shadow-xl rounded-xl w-40 py-2 z-50">
+              <NavLink
+                to="/profile"
+                className="block px-4 py-2 hover:bg-gray-100"
+                onClick={() => setIsProfileOpen(false)}
+              >
+                Profile
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
-      {/* REQUIRED FOR ROUTING */}
+      {/* ROUTING */}
       <main className="p-4">
         <Outlet />
       </main>
