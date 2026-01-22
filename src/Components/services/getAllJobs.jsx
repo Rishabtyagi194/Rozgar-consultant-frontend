@@ -14,7 +14,7 @@ export const getAllJobs = async () => {
     const data = await res.json();
     console.log("Jobs API Response:", data);
 
-    return data?.AllJobs || [];
+    return data?.jobs || [];
   } catch (error) {
     console.error("Error fetching jobs:", error);
     return [];
@@ -44,4 +44,18 @@ export const getEmployerJobs = async () => {
     console.error("Employer jobs error:", error);
     return [];
   }
+};
+
+
+export const saveJob = async (jobId) => {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`/api/jobs/save/${jobId}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.json();
 };

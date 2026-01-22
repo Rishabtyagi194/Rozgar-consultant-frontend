@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -12,9 +12,11 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -25,43 +27,44 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        "http://147.93.72.227:5000/api/employer/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: formData.username,
-            password: formData.password,
-          }),
-        }
-      );
+      const res = await fetch("http://147.93.72.227:5000/api/employer/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
+      });
 
       const data = await res.json();
+      console.log("Login API response:", data);
 
       if (!res.ok) {
         alert(data?.message || "Login failed");
         return;
       }
 
-      const token = data?.data?.token;
-      const user = data?.data?.user;
+      const token = data?.token;
+      const employer = data?.employer;
 
-      if (token) {
-        localStorage.setItem("token", token); // ✅ store token
+      if (!token) {
+        alert("Token not received from server");
+        return;
       }
 
-      if (user) {
-        localStorage.setItem("user", JSON.stringify(user)); // optional
-      }
+      // ✅ STORE IN LOCALSTORAGE (CORRECT KEYS)
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(employer));
 
       alert("Login Successful!");
 
-      // ✅ Redirect to home page
+      // ✅ Redirect
       navigate("/home");
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong!");
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -73,7 +76,7 @@ const Login = () => {
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email / Phone */}
+          {/* Username */}
           <div>
             <label className="block font-medium mb-1">
               Email or Phone Number
@@ -84,7 +87,8 @@ const Login = () => {
               value={formData.username}
               onChange={handleChange}
               required
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter email or phone"
             />
           </div>
 
@@ -97,7 +101,8 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter password"
             />
 
             <p className="text-right text-sm mt-1">
@@ -111,11 +116,11 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded font-semibold disabled:bg-gray-400"
+            className="w-full bg-blue-600 text-white py-2 rounded font-semibold disabled:bg-gray-400 hover:bg-blue-700 transition"
           >
             {loading ? "Logging in..." : "Login"}
           </button>

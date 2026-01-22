@@ -16,6 +16,8 @@ import { HRResponses } from "./Pages/HRResponses";
 import UploadResume from "./Pages/UploadResume";
 import MyArchive from "./Pages/MyArchive";
 import UploadExcel from "./Pages/UploadExcel";
+import JobDetails from "./Components/Jobs/JobDetailsById";
+import UploadResumeJob from "./Components/UploadResume/UploadResumeJob";
 
 function App() {
   return (
@@ -33,10 +35,11 @@ function App() {
           <Route path="/job-posting" element={<JobPostForm />} />
           <Route path="/internship-posting" element={<InternshipJob />} />
           <Route path="/hr-responses" element={<HRResponses />} />
+          <Route path="/jobposting/:id" element={<JobDetails />} />
           <Route path="/upload-resume" element={<UploadResume />} />
+          <Route path="/upload-resume/jobs/:id" element={<UploadResumeJob />} />
           <Route path="/my-archive" element={<MyArchive />} />
           <Route path="/upload-data" element={<UploadExcel />} />
-
 
           <Route path="/settings" element={<Setting />} />
           <Route path="/contactus" element={<ContactPage />} />

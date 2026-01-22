@@ -63,7 +63,9 @@ export const ResponseRecuriter = () => {
         {!loading &&
           renderJobs.map((job, index) => (
             <JobCard
-              key={index}
+            
+            key={job.job_id || index}
+              job={job}
               title={job.jobTitle}
               company={job.AboutCompany}
               experience={`${job.experinceFrom} - ${job.experinceTo} yrs`}
@@ -73,6 +75,9 @@ export const ResponseRecuriter = () => {
               skills={job.skills || []}
               posted={`Posted on ${new Date(job.created_at).toDateString()}`}
               logo="/default-logo.png"
+              redirectTo={(job) =>
+                `/jobposting/${job.job_id}`
+              }
             />
           ))}
       </div>

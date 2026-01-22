@@ -1,49 +1,29 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getAllJobs, getEmployerJobs } from "../services/getAllJobs";
+import { getAllJobs } from "../services/getAllJobs";
 import { RecommendedHeader } from "../Jobs/RecomendedHeader";
 import { JobCard } from "../Jobs/JobsCard";
-
 
 export const ResumeUpload = () => {
   const [activeTab, setActiveTab] = useState("All Recruiter Jobs");
   const [jobs, setJobs] = useState([]);
-  const [employerJobs, setEmployerJobs] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔹 Fetch all recruiter jobs
   const fetchAllJobs = async () => {
-    setLoading(true);
-    const data = await getAllJobs();
-    setJobs(data || []);
-    setLoading(false);
-  };
-
-  // 🔹 Fetch jobs posted by you
-  const fetchEmployerJobs = async () => {
-    setLoading(true);
-    const data = await getEmployerJobs();
-    setEmployerJobs(data || []);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const data = await getAllJobs();
+      setJobs(Array.isArray(data) ? data : data?.data || []);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    if (activeTab === "All Recruiter Jobs" || activeTab === "Preferences") {
-      fetchAllJobs();
-    }
+    fetchAllJobs();
+  }, []);
 
-    if (activeTab === "Posted By you") {
-      fetchEmployerJobs();
-    }
-  }, [activeTab]);
-
-  const tabs = [
-    { name: "All Recruiter Jobs", count: jobs.length },
-    // { name: "Posted By you", count: employerJobs.length },
-    // { name: "Preferences", count: jobs.length },
-  ];
-
-  const renderJobs = activeTab === "Posted By you" ? employerJobs : jobs;
+  const tabs = [{ name: "All Recruiter Jobs", count: jobs.length }];
 
   return (
     <div className="bg-white border-b border-gray-100 px-8 py-4 w-full">
@@ -56,23 +36,33 @@ export const ResumeUpload = () => {
       <div className="mt-6 space-y-4">
         {loading && <p className="text-gray-500">Loading jobs...</p>}
 
-        {!loading && renderJobs.length === 0 && (
+        {!loading && jobs.length === 0 && (
           <p className="text-gray-500">No jobs found</p>
         )}
 
         {!loading &&
-          renderJobs.map((job, index) => (
+          jobs.map((job, index) => (
             <JobCard
-              key={index}
+              key={job.job_id || index}
+              job={job}
               title={job.jobTitle}
               company={job.AboutCompany}
               experience={`${job.experinceFrom} - ${job.experinceTo} yrs`}
-              salary={`${job.salaryRangeFrom} - ${job.salaryRangeTo}`}
-              location={`${job.jobLocation?.city || ""}, ${job.jobLocation?.state || ""}, ${job.jobLocation?.country || ""}`}
+              salary={
+                job.salaryRangeFrom && job.salaryRangeTo
+                  ? `${job.salaryRangeFrom} - ${job.salaryRangeTo} LPA`
+                  : "Not disclosed"
+              }
+              location={job.jobLocation}
               description={job.jobDescription}
               skills={job.skills || []}
-              posted={`Posted on ${new Date(job.created_at).toDateString()}`}
+              posted={`Posted on ${new Date(
+                job.created_at
+              ).toDateString()}`}
               logo="/default-logo.png"
+              redirectTo={(job) =>
+                `/upload-resume/jobs/${job.job_id}`
+              }
             />
           ))}
       </div>
