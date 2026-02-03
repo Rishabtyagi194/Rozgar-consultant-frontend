@@ -176,7 +176,7 @@ const JobPostForm = ({}) => {
 
   const handleDeleteJob = async (jobId) => {
     if (!jobId) {
-      alert("Job ID not found!");
+      toast("Job ID not found!");
       return;
     }
 
@@ -202,10 +202,10 @@ const JobPostForm = ({}) => {
         throw new Error(data.message || "Failed to delete job");
       }
 
-      alert("Job deleted successfully!");
+      toast("Job deleted successfully!");
     } catch (error) {
       console.error("Error deleting job:", error);
-      alert("Error deleting job: " + error.message);
+      toast("Error deleting job: " + error.message);
     }
   };
 
@@ -283,7 +283,7 @@ const JobPostForm = ({}) => {
   
     } catch (error) {
       console.error("Error creating job:", error);
-      // alert("Error creating job: " + error.message);
+      // toast("Error creating job: " + error.message);
     }
   };
 

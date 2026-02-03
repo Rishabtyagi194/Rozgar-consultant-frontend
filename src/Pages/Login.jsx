@@ -42,7 +42,7 @@ const Login = () => {
       console.log("Login API response:", data);
 
       if (!res.ok) {
-        alert(data?.message || "Login failed");
+        toast(data?.message || "Login failed");
         return;
       }
 
@@ -50,7 +50,7 @@ const Login = () => {
       const employer = data?.employer;
 
       if (!token) {
-        alert("Token not received from server");
+        toast("Token not received from server");
         return;
       }
 
@@ -58,13 +58,13 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(employer));
 
-      alert("Login Successful!");
+      toast("Login Successful!");
 
       // ✅ Redirect
       navigate("/home");
     } catch (error) {
       console.error("Login Error:", error);
-      alert("Something went wrong. Please try again.");
+      toast("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

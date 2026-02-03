@@ -18,10 +18,12 @@ import MyArchive from "./Pages/MyArchive";
 import UploadExcel from "./Pages/UploadExcel";
 import JobDetails from "./Components/Jobs/JobDetailsById";
 import UploadResumeJob from "./Components/UploadResume/UploadResumeJob";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+        <Toaster position="top-right" />
       <Routes>
         {/* Auth Routes */}
         <Route path="/" element={<Login />} />

@@ -40,10 +40,10 @@ const ExcelUpload = ({ data, setData }) => {
 
       const result = await response.json();
       console.log("Upload result:", result);
-      alert("File uploaded successfully!");
+      toast("File uploaded successfully!");
     } catch (error) {
       console.error(error);
-      alert("Failed to upload file.");
+      toast("Failed to upload file.");
     } finally {
       setUploading(false);
     }

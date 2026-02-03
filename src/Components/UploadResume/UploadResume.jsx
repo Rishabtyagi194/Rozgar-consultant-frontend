@@ -1,12 +1,14 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
-import { getAllJobs } from "../services/getAllJobs";
+import { getAllInternships, getAllJobs } from "../services/getAllJobs";
 import { RecommendedHeader } from "../Jobs/RecomendedHeader";
 import { JobCard } from "../Jobs/JobsCard";
 
 export const ResumeUpload = () => {
   const [activeTab, setActiveTab] = useState("All Recruiter Jobs");
   const [jobs, setJobs] = useState([]);
+  const [internship, setInternship] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchAllJobs = async () => {
@@ -19,11 +21,28 @@ export const ResumeUpload = () => {
     }
   };
 
+  const fetchAllInternship = async () => {
+    try {
+      setLoading(true);
+      const data = await getAllInternships();
+      setInternship(Array.isArray(data) ? data : data?.data || []);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchAllJobs();
+    fetchAllInternship();
   }, []);
 
-  const tabs = [{ name: "All Recruiter Jobs", count: jobs.length }];
+  const tabs = [
+    { name: "All Recruiter Jobs", count: jobs.length },
+    { name: "All Recruiter Internship", count: internship.length },
+  ];
+
+  const isJobTab = activeTab === "All Recruiter Jobs";
+  const dataToRender = isJobTab ? jobs : internship;
 
   return (
     <div className="bg-white border-b border-gray-100 px-8 py-4 w-full">
@@ -34,34 +53,46 @@ export const ResumeUpload = () => {
       />
 
       <div className="mt-6 space-y-4">
-        {loading && <p className="text-gray-500">Loading jobs...</p>}
+        {loading && (
+          <p className="text-gray-500">
+            Loading {isJobTab ? "jobs" : "internships"}...
+          </p>
+        )}
 
-        {!loading && jobs.length === 0 && (
-          <p className="text-gray-500">No jobs found</p>
+        {!loading && dataToRender.length === 0 && (
+          <p className="text-gray-500">
+            No {isJobTab ? "jobs" : "internships"} found
+          </p>
         )}
 
         {!loading &&
-          jobs.map((job, index) => (
+          dataToRender.map((item, index) => (
             <JobCard
-              key={job.job_id || index}
-              job={job}
-              title={job.jobTitle}
-              company={job.AboutCompany}
-              experience={`${job.experinceFrom} - ${job.experinceTo} yrs`}
+              key={item.job_id || item.internship_id || index}
+              job={item}
+              title={item.jobTitle || item.internshipTitle}
+              company={item.AboutCompany}
+              experience={
+                isJobTab
+                  ? `${item.experinceFrom} - ${item.experinceTo} yrs`
+                  : "Internship"
+              }
               salary={
-                job.salaryRangeFrom && job.salaryRangeTo
-                  ? `${job.salaryRangeFrom} - ${job.salaryRangeTo} LPA`
+                item.salaryRangeFrom && item.salaryRangeTo
+                  ? `${item.salaryRangeFrom} - ${item.salaryRangeTo} LPA`
                   : "Not disclosed"
               }
-              location={job.jobLocation}
-              description={job.jobDescription}
-              skills={job.skills || []}
+              location={item.jobLocation}
+              description={item.jobDescription}
+              skills={item.skills || []}
               posted={`Posted on ${new Date(
-                job.created_at
+                item.created_at
               ).toDateString()}`}
               logo="/default-logo.png"
-              redirectTo={(job) =>
-                `/upload-resume/jobs/${job.job_id}`
+              redirectTo={() =>
+                isJobTab
+                  ? `/upload-resume/jobs/${item.job_id}`
+                  : `/upload-resume/internship/${item.internship_id}`
               }
             />
           ))}

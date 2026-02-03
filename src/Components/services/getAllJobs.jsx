@@ -21,6 +21,38 @@ export const getAllJobs = async () => {
   }
 };
 
+export const getAllInternships = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      "http://147.93.72.227:5000/api/internship/employer-internships",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (Array.isArray(data?.jobs)) {
+      setInternshipsActive(
+        data.jobs.filter((job) => job.Status === "active")
+      );
+
+      setInternshipsDraft(
+        data.jobs.filter(
+          (job) => job.Status === "draft" || job.Status === "inactive"
+        )
+      );
+    }
+  } catch (error) {
+    console.error("Error fetching internships:", error);
+  }
+};
+
 
 export const getEmployerJobs = async () => {
   try {

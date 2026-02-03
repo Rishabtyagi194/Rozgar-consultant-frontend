@@ -14,8 +14,8 @@ export const RecommendedJobsSection = () => {
   // ✅ Normalize API response
   const normalizeJobs = (response) => {
     if (Array.isArray(response)) return response;
-    if (Array.isArray(response?.data)) return response.data;
-    if (Array.isArray(response?.jobs)) return response.jobs;
+    if (Array.isArray(response?.data)) return response?.data;
+    if (Array.isArray(response?.jobs)) return response?.jobs;
     return [];
   };
 
@@ -54,9 +54,9 @@ export const RecommendedJobsSection = () => {
   }, [activeTab]);
 
   const tabs = [
-    { name: "All Recruiter Jobs", count: jobs.length },
-    { name: "Posted By you", count: employerJobs.length },
-    { name: "Preferences", count: jobs.length },
+    { name: "All Recruiter Jobs", count: jobs?.length },
+    { name: "Posted By you", count: employerJobs?.length },
+    { name: "Preferences", count: jobs?.length },
   ];
 
   const renderJobs =

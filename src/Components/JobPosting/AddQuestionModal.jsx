@@ -75,7 +75,7 @@ export default function AddQuestionModal({ onClose }) {
   // Final submit
   const handleSubmit = () => {
     console.log("Questions data:", questions);
-    alert("Check console for output");
+    toast("Check console for output");
   };
 
   return (
