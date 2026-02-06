@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 import Signup from "./pages/Signup.jsx";
-import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ForgotPassword from "./pages/ForgotPassword";
 import RegisterAgencyForm from "./pages/RegistrationForm.jsx";
 
 import { Home } from "./pages/Home";
