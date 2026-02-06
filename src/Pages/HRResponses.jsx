@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponseRecuriter } from '../Components/HRResponse/HRResponse'
+import { ResponseRecuriter } from '../components/HRResponse/HRResponse'
 
 export const HRResponses = () => {
   return (

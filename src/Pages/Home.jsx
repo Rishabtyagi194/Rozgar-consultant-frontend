@@ -1,5 +1,5 @@
 import React from 'react'
-import { RecommendedJobsSection } from '../Components/Jobs/RecommendedJobsSection'
+import { RecommendedJobsSection } from '../components/Jobs/RecommendedJobsSection'
 
 export const Home = () => {
   return (

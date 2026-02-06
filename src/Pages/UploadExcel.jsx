@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import ExcelUpload from "../Components/MyArchive/ExcelUpload";
+import ExcelUpload from "../components/MyArchive/ExcelUpload";
 
 const UploadExcel = () => {
   const [data, setData] = useState([]);

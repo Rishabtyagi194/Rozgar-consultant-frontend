@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./Components/global/Navbar";
+import Navbar from "./components/global/Navbar";
 
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
@@ -10,14 +10,14 @@ import { Home } from "./Pages/Home";
 import { Setting } from "./Pages/Setting";
 import { AllJobs } from "./Pages/AllJobs";
 import ContactPage from "./Pages/ContactUs";
-import JobPostForm from "./Components/JobPosting/JobPostingForm";
-import InternshipJob from "./Components/JobPosting/Internship/InternshipPostingForm";
+import JobPostForm from "./components/JobPosting/JobPostingForm";
+import InternshipJob from "./components/JobPosting/Internship/InternshipPostingForm";
 import { HRResponses } from "./Pages/HRResponses";
 import UploadResume from "./Pages/UploadResume";
 import MyArchive from "./Pages/MyArchive";
 import UploadExcel from "./Pages/UploadExcel";
-import JobDetails from "./Components/Jobs/JobDetailsById";
-import UploadResumeJob from "./Components/UploadResume/UploadResumeJob";
+import JobDetails from "./components/Jobs/JobDetailsById";
+import UploadResumeJob from "./components/UploadResume/UploadResumeJob";
 import { Toaster } from "react-hot-toast";
 
 function App() {
