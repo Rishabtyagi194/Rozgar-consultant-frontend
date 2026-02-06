@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import ForgotPassword from "./Pages/ForgotPassword";
-import RegisterAgencyForm from "./Pages/RegistrationForm";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import RegisterAgencyForm from "./pages/RegistrationForm";
 
-import { Home } from "./Pages/Home";
-import { Setting } from "./Pages/Setting";
-import { AllJobs } from "./Pages/AllJobs";
-import ContactPage from "./Pages/ContactUs";
-import { HRResponses } from "./Pages/HRResponses";
-import UploadResume from "./Pages/UploadResume";
-import MyArchive from "./Pages/MyArchive";
-import UploadExcel from "./Pages/UploadExcel";
+import { Home } from "./pages/Home";
+import { Setting } from "./pages/Setting";
+import { AllJobs } from "./pages/AllJobs";
+import ContactPage from "./pages/ContactUs";
+import { HRResponses } from "./pages/HRResponses";
+import UploadResume from "./pages/UploadResume";
+import MyArchive from "./pages/MyArchive";
+import UploadExcel from "./pages/UploadExcel";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/global/Navbar";
 import JobPostForm from "./components/JobPosting/JobPostingForm";

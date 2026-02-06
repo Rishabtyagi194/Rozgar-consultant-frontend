@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Login from "../../Pages/Login";
-import Signup from "../../Pages/Signup";
-import ForgotPassword from "../../Pages/ForgotPassword";
-import RegisterAgencyForm from "../../Pages/RegistrationForm";
+import Login from "../../pages/Login";
+import Signup from "../../pages/Signup";
+import ForgotPassword from "../../pages/ForgotPassword";
+import RegisterAgencyForm from "../../pages/RegistrationForm";
 
 
 const AuthContainer = () => {
