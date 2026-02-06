@@ -1,24 +1,26 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./Components/global/Navbar";
 
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import ForgotPassword from "./Pages/ForgotPassword";
-import RegisterAgencyForm from "./Pages/RegistrationForm";
 
-import { Home } from "./Pages/Home";
-import { Setting } from "./Pages/Setting";
-import { AllJobs } from "./Pages/AllJobs";
-import ContactPage from "./Pages/ContactUs";
-import JobPostForm from "./Components/JobPosting/JobPostingForm";
-import InternshipJob from "./Components/JobPosting/Internship/InternshipPostingForm";
-import { HRResponses } from "./Pages/HRResponses";
-import UploadResume from "./Pages/UploadResume";
-import MyArchive from "./Pages/MyArchive";
-import UploadExcel from "./Pages/UploadExcel";
-import JobDetails from "./Components/Jobs/JobDetailsById";
-import UploadResumeJob from "./Components/UploadResume/UploadResumeJob";
+
+import Signup from "./pages/Signup.jsx";
+import ForgotPassword from "./pages/ForgotPassword";
+import RegisterAgencyForm from "./pages/RegistrationForm.jsx";
+
+import { Home } from "./pages/Home";
+import { Setting } from "./pages/Setting";
+import { AllJobs } from "./pages/AllJobs";
+import ContactPage from "./pages/ContactUs";
+import { HRResponses } from "./pages/HRResponses";
+import UploadResume from "./pages/UploadResume";
+import MyArchive from "./pages/MyArchive";
+import UploadExcel from "./pages/UploadExcel";
 import { Toaster } from "react-hot-toast";
+import Navbar from "./components/global/Navbar";
+import JobPostForm from "./components/JobPosting/JobPostingForm";
+import InternshipJob from "./components/JobPosting/Internship/InternshipPostingForm";
+import JobDetails from "./components/Jobs/JobDetailsById";
+import UploadResumeJob from "./components/UploadResume/UploadResumeJob";
+import Login from "./pages/Login.jsx";
 
 function App() {
   return (
