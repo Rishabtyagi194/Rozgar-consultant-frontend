@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/global/Navbar";
+
 
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
@@ -19,6 +19,7 @@ import UploadExcel from "./Pages/UploadExcel";
 import JobDetails from "./components/Jobs/JobDetailsById";
 import UploadResumeJob from "./components/UploadResume/UploadResumeJob";
 import { Toaster } from "react-hot-toast";
+import Navbar from "./components/global/Navbar";
 
 function App() {
   return (
