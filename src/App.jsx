@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
-import Login from "./pages/Login";
+
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import RegisterAgencyForm from "./pages/RegistrationForm";
@@ -20,6 +20,7 @@ import JobPostForm from "./components/JobPosting/JobPostingForm";
 import InternshipJob from "./components/JobPosting/Internship/InternshipPostingForm";
 import JobDetails from "./components/Jobs/JobDetailsById";
 import UploadResumeJob from "./components/UploadResume/UploadResumeJob";
+import Login from "./pages/Login.jsx";
 
 function App() {
   return (
