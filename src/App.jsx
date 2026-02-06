@@ -10,7 +10,7 @@ import { Home } from "./Pages/Home";
 import { Setting } from "./Pages/Setting";
 import { AllJobs } from "./Pages/AllJobs";
 import ContactPage from "./Pages/ContactUs";
-import JobPostForm from "./components/JobPosting/JobPostingForm";
+
 import InternshipJob from "./components/JobPosting/Internship/InternshipPostingForm";
 import { HRResponses } from "./Pages/HRResponses";
 import UploadResume from "./Pages/UploadResume";
@@ -20,6 +20,7 @@ import JobDetails from "./components/Jobs/JobDetailsById";
 import UploadResumeJob from "./components/UploadResume/UploadResumeJob";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/global/Navbar";
+import JobPostForm from "./components/JobPosting/JobPostingForm";
 
 function App() {
   return (
