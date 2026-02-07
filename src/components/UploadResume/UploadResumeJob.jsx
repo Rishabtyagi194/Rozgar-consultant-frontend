@@ -26,7 +26,7 @@ const UploadResumeJob = () => {
       }
 
       const res = await fetch(
-        "http://147.93.72.227:5000/api/jobs/applications/consultant/uploaded-resume/on-jobs",
+        "https://qa.api.rozgardwar.cloud/api/jobs/applications/consultant/uploaded-resume/on-jobs",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const UploadResumeJob = () => {
       setLoading(true);
 
       const res = await fetch(
-        `http://147.93.72.227:5000/api/jobs/applications/HotVacancy/${id}/consultant/submit-resume`,
+        `https://qa.api.rozgardwar.cloud/api/jobs/applications/HotVacancy/${id}/consultant/submit-resume`,
         {
           method: "POST",
           headers: {

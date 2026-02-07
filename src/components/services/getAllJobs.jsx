@@ -2,7 +2,7 @@ export const getAllJobs = async () => {
   try {
     const token = localStorage.getItem("token"); // ✅ FIXED
 
-    const res = await fetch("http://147.93.72.227:5000/api/jobs/all-jobs", {
+    const res = await fetch("https://qa.api.rozgardwar.cloud/api/jobs/all-jobs", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ export const getAllInternships = async () => {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      "http://147.93.72.227:5000/api/internship/employer-internships",
+      "https://qa.api.rozgardwar.cloud/api/internship/employer-internships",
       {
         method: "GET",
         headers: {
@@ -56,7 +56,7 @@ export const getEmployerJobs = async () => {
     const token = localStorage.getItem("token"); // make sure token is stored
 
     const res = await fetch(
-      "http://147.93.72.227:5000/api/jobs/employer-jobs",
+      "https://qa.api.rozgardwar.cloud/api/jobs/employer-jobs",
       {
         method: "GET",
         headers: {

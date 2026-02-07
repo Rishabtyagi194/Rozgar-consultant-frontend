@@ -38,7 +38,7 @@ const RegisterAgencyForm = () => {
     setMessage("");
 
     try {
-      const res = await fetch("http://147.93.72.227:5000/api/organization/register", {
+      const res = await fetch("https://qa.api.rozgardwar.cloud/api/organization/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

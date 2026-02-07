@@ -14,7 +14,7 @@ const MyArchive = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://147.93.72.227:5000/api/excel/list", {
+      const response = await fetch("https://qa.api.rozgardwar.cloud/api/excel/list", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
