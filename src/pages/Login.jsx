@@ -27,7 +27,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://147.93.72.227:5000/api/employer/login", {
+      const res = await fetch("https://qa.api.rozgardwar.cloud/api/employer/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

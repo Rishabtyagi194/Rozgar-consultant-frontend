@@ -3,7 +3,7 @@ name: Frontend CI/CD
 on:
   push:
     branches:
-      - mukti 
+      - mukti
       - main
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -26,7 +26,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to QA
-        if: github.ref == 'refs/heads/qa'
+        if: github.ref == 'refs/heads/mukti'
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -34,6 +34,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "dist/*"
           target: ${{ secrets.QA_PATH }}
+          strip_components: 1
           rm: true
 
       - name: Deploy to PROD
@@ -45,4 +46,5 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "dist/*"
           target: ${{ secrets.PROD_PATH }}
+          strip_components: 1
           rm: true
