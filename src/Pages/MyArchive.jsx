@@ -138,10 +138,7 @@ const MyArchive = () => {
 
             <tbody>
               {sortedData.map((row, idx) => (
-                <tr
-                  key={idx}
-                  className="border-t hover:bg-gray-50 transition"
-                >
+                <tr key={idx} className="border-t hover:bg-gray-50 transition">
                   {columns.map((col) => (
                     <td
                       key={col}
