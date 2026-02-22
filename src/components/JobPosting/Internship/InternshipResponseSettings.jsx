@@ -100,7 +100,7 @@ const JobResponseSettings = ({ setResponseSettings, onPost, isFormValid }) => {
       </div>
 
       {/* Vacancy visible to consultancy */}
-      <div className="flex items-center gap-2 mt-2">
+      {/* <div className="flex items-center gap-2 mt-2">
         <input
           type="checkbox"
           checked={isConsultantVisible}
@@ -110,7 +110,7 @@ const JobResponseSettings = ({ setResponseSettings, onPost, isFormValid }) => {
         <span className="text-sm text-gray-700">
           Vacancy should be visible to consultancy?
         </span>
-      </div>
+      </div> */}
 
       {/* Action Buttons */}
       <div className="mt-6 flex gap-2">

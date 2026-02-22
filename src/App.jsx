@@ -21,6 +21,7 @@ import InternshipJob from "./components/JobPosting/Internship/InternshipPostingF
 import JobDetails from "./components/Jobs/JobDetailsById";
 import UploadResumeJob from "./components/UploadResume/UploadResumeJob";
 import Login from "./pages/Login.jsx";
+import VerifyOtp from "./pages/VerifyOtp.jsx";
 
 function App() {
   return (
@@ -44,6 +45,8 @@ function App() {
           <Route path="/upload-resume/jobs/:id" element={<UploadResumeJob />} />
           <Route path="/my-archive" element={<MyArchive />} />
           <Route path="/upload-data" element={<UploadExcel />} />
+          <Route path="/verify" element={<VerifyOtp />} />
+
 
           <Route path="/settings" element={<Setting />} />
           <Route path="/contactus" element={<ContactPage />} />
