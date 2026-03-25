@@ -141,21 +141,23 @@ const JobDetails = () => {
       </div>
 
       {/* ================= SKILLS ================= */}
-      {job.skills?.length > 0 && (
-        <div className="bg-white rounded-xl shadow p-6">
-          <h2 className="text-lg font-semibold mb-3">Key skills</h2>
-          <div className="flex flex-wrap gap-2">
-            {job.skills.map((skill, i) => (
-              <span
-                key={i}
-                className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+{/* ================= SKILLS ================= */}
+{Array.isArray(job?.skills) && job.skills.length > 0 && (
+  <div className="bg-white rounded-xl shadow p-6">
+    <h2 className="text-lg font-semibold mb-3">Key skills</h2>
+    <div className="flex flex-wrap gap-2">
+      {job.skills.map((skill, i) => (
+        <span
+          key={i}
+          className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm"
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+  </div>
+)}
+
 
       {/* ================= COMPANY ================= */}
       <div className="bg-white rounded-xl shadow p-6">

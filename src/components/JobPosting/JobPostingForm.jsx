@@ -390,6 +390,7 @@ const JobPostForm = ({}) => {
               className="w-full border border-gray-300 rounded-lg px-3 py-2"
             >
               <option>In office</option>
+              <option>Field Work</option>
               <option>Remote</option>
               <option>Hybrid</option>
             </select>
